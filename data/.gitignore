@@ -1,0 +1,4 @@
+fonts/*
+!fonts/.gitkeep
+warns/*
+!warns/.gitkeep

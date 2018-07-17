@@ -1,0 +1,8 @@
+avatars/*
+!avatars/.gitkeep
+backgrounds/*
+!backgrounds/.gitkeep
+cards/*
+!cards/.gitkeep
+profiles/*
+!profiles/.gitkeep

@@ -180,7 +180,7 @@ class General:
     @commands.command(description='Return a link to the source code.')
     async def source(self):
         """Post a link to the bot source code."""
-        source = "https://github.com/EastAPOLO/sudoBot"
+        source = "https://github.com/doomcrewinc/dcnbot"
         await self.bot.say(source)
 
     @commands.command(pass_context=True, no_pm=True)

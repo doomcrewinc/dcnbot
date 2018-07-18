@@ -7,7 +7,7 @@ import subprocess
 
 class General:
     """
-    General commands from sudobotPy.
+    General commands from dcnbotPy.
     """
 
     def __init__(self, bot, config):
@@ -15,15 +15,15 @@ class General:
         self.config = config
 
     @commands.command(pass_context=True)
-    async def listdistro(self, ctx):
-        """List available user distro roles."""
+    async def listroles(self, ctx):
+        """List available user assignable roles."""
         _rolesList = '\n'.join(map(str, self.config["user_roles"]))
 
         return await self.bot.say('```List of available roles\n' + _rolesList + '\n```')
 
     @commands.command(pass_context=True)
-    async def joindistro(self, ctx, *, distro=""):
-        """Join one of the many distribution roles available."""
+    async def joinrole(self, ctx, *, role=""):
+        """Select one or more of the many user roles available."""
         _server = ctx.message.server
         _member = ctx.message.author
 
@@ -33,17 +33,17 @@ class General:
         _userRoles = _member.roles
 
         for idx, i in enumerate(_serverRoles):
-            _distro = i.name.lower()
+            _role = i.name.lower()
 
-            if distro.lower() == _distro:
+            if role.lower() == _role:
                 for idy, ii in enumerate(_roles):
-                    _joindistro = ii.lower()
+                    _joinrole = ii.lower()
 
-                    if distro.lower() == _joindistro:
+                    if role.lower() == _joinrole:
                         for idz, iii in enumerate(_userRoles):
 
-                            _userdistro = str(iii).lower()
-                            if distro.lower() == _userdistro:
+                            _userrole = str(iii).lower()
+                            if role.lower() == _userrole:
                                 return await self.bot.say('You\'re already in that role.')
                             elif idz >= len(_userRoles)-1:
                                 try:
@@ -58,21 +58,21 @@ class General:
                 return await self.bot.say('That role doesn\'t exist')
 
     @commands.command(pass_context=True)
-    async def leavedistro(self, ctx, *, distro : str):
-        """Leave a distribution role that is currently assigned to you."""
+    async def leaverole(self, ctx, *, role : str):
+        """Remove a user role that is currently assigned to you."""
         _server = ctx.message.server
         _member = ctx.message.author
         _roles = self.config["user_roles"]
         _userRoles = _member.roles
 
         for idx, i in enumerate(_userRoles):
-            _distro = i.name.lower()
+            _role = i.name.lower()
 
-            if distro.lower() == _distro:
+            if role.lower() == _role:
                 for idy, ii in enumerate(_roles):
                     _checkroles = ii.lower()
 
-                    if distro.lower() == _checkroles.lower():
+                    if role.lower() == _checkroles.lower():
 
                         try:
                             await self.bot.remove_roles(_member, i)
@@ -106,7 +106,7 @@ class General:
                             pkginfos.append([res['pkgname'],res['repo'],res['arch'],res['pkgver']+'-'+res['pkgrel'],res['pkgdesc'],res['url']])
                         else:
                             count -= 1
-            
+
             async with aiohttp.get('https://aur.archlinux.org/rpc.php?v=5&type=search&arg={0}'.format(query)) as u:
                 au = await u.json()
                 au = au['results']

@@ -11,8 +11,10 @@ import os
 import cogs.general
 import cogs.fun
 import cogs.mod
+import cogs.catfacts
+import cogs.testing
 
-dcnbotVersion = "0.3.2"
+dcnbotVersion = "0.1.2"
 
 if not os.path.isfile('data/warns/warns.dat'):
     with open('data/warns/warns.dat', 'w') as f:
@@ -56,7 +58,7 @@ thr = threading.Timer(86400, decayWarn)
 with open('./config.json', 'r') as c_json:
     config = json.load(c_json)
 
-description = '''dcnbotPy is written in Python. Version $dcnbotVersion'''
+description = '''dcnbotPy is written in Python. Version {}'''.format(dcnbotVersion)
 
 #Assign the prefix.
 prefix = config["prefix_settings"]["prefix"]
@@ -141,6 +143,10 @@ def ready(bot, config):
         bot.add_cog(cogs.fun.Fun(bot, config))
     if config['modules']['mod'] == True:
         bot.add_cog(cogs.mod.Mod(bot, config, thr))
+    if config['modules']['catfacts'] == True:
+        bot.add_cog(cogs.catfacts.Catfacts(bot, config))
+    if config['modules']['testing'] == True:
+        bot.add_cog(cogs.testing.Testing(bot, config))
 
 
 ready(bot, config)

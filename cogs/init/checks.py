@@ -10,7 +10,7 @@ def is_owner_check(message):
 
     # print(config["owner_ids"][0])
 
-    return message.author.id == '68847303431041024'
+    return message.author.id == '262782883280846849'
 
 def is_owner():
     return commands.check(lambda ctx: is_owner_check(ctx.message))
